@@ -1,6 +1,7 @@
 require("dotenv").config();
-var keys = require("./keys.js");
 var Spotify = require('node-spotify-api');
+
+var keys = require("./keys.js");
 var fs = require("fs");
 var axios = require("axios");
 
@@ -12,7 +13,11 @@ var commandString = "";
 var commandQuery = "The Sign";
 
 if (argvArray.length < 4){
-    setString();
+    if(argvArray[2] == "movie-this" && argvArray.length == 3){
+        console.log("");
+        console.log("If you haven't watched 'Mr. Nobody' then you should: http://www.imdb.com/title/tt0485947/");
+        console.log("It's on Netflix!");
+    }
     if (argvArray[2] == "do-what-it-says"){
         doWhatItSays();
     }
@@ -21,14 +26,6 @@ if (argvArray.length < 4){
     commandQuery = temp.join(" ");
     commandString = argvArray[2];
     assignAction();
-}
-
-function setString(){
-    if(argvArray[2] == "movie-this" && argvArray.length == 3){
-        console.log("");
-        console.log("If you haven't watched 'Mr. Nobody' then you should: http://www.imdb.com/title/tt0485947/");
-        console.log("It's on Netflix!");
-    }
 }
 
 function assignAction(){
@@ -65,9 +62,16 @@ function spotifyThis(){
         if (err) {
           return console.log('Error occurred: ' + err);
         }
-      console.log(data.split(",")); 
-      });
-      
+       // console.log(data.tracks.items[0]);
+       var artists = [];
+       for(var i = 0; i< data.tracks.items[0].artists.length; i++){
+           artists.push(data.tracks.items[0].artists[i].name);
+       }
+        console.log("Artists: " + artists.join(" , "));
+        console.log("Song Name: " + data.tracks.items[0].name); 
+        console.log("Album: " + data.tracks.items[0].album.name);
+        console.log("Link: " + data.tracks.items[0].external_urls.spotify);
+      });   
 }
 
 
@@ -83,19 +87,17 @@ function doWhatItSays(){
         argvArray.push(temp[1]);
         commandString = temp[0];
         commandQuery = temp[1];
+        console.log(commandQuery);
         assignAction();
-        
-        
         
     });
 }
 
 function concertThis(){
-
     axios.get("https://rest.bandsintown.com/artists/" + commandQuery + "/events?app_id=codingbootcamp").then(
     
     function(response) {
-        console.log("Shawn Mendes Concerts:");
+        console.log(commandQuery + " Concerts:");
         console.log("");
         for(var i = 0; i<5; i++){
             console.log(i+1);
