@@ -1,17 +1,21 @@
 require("dotenv").config();
-
+var keys = require("./keys.js");
+var Spotify = require('node-spotify-api');
+var fs = require("fs");
 var axios = require("axios");
+
 var argvArray = process.argv;
 
-//var spotify = new Spotify(keys.spotify);
+var spotify = new Spotify(keys.spotify);
 
-var commandArray = process.argv;
 var commandString = "";
 var commandQuery = "The Sign";
 
 if (argvArray.length < 4){
     setString();
-    assignAction();
+    if (argvArray[2] == "do-what-it-says"){
+        doWhatItSays();
+    }
 }else{
     var temp = argvArray.splice(3);
     commandQuery = temp.join(" ");
@@ -24,17 +28,6 @@ function setString(){
         console.log("");
         console.log("If you haven't watched 'Mr. Nobody' then you should: http://www.imdb.com/title/tt0485947/");
         console.log("It's on Netflix!");
-    }
-    var separator = false;
-    for (var i; i< commandArray.length; i++){
-        if(commandArray[i] != "," && separator){
-            commandString = commandString + commandArray[i];
-        }else{
-            separator = true;
-        }
-        if (separator){
-            commandQuery = commandQuery + commandArray[i];
-        }
     }
 }
 
@@ -72,7 +65,7 @@ function spotifyThis(){
         if (err) {
           return console.log('Error occurred: ' + err);
         }
-      console.log(data); 
+      console.log(data.split(",")); 
       });
       
 }
@@ -80,6 +73,21 @@ function spotifyThis(){
 
 function doWhatItSays(){
 
+    fs.readFile("random.txt", "utf8", function(error, data) {
+        // If the code experiences any errors it will log the error to the console.
+        if (error) {
+          return console.log(error);
+        }
+        var temp = data.split(",");
+        argvArray.push(temp[0]);
+        argvArray.push(temp[1]);
+        commandString = temp[0];
+        commandQuery = temp[1];
+        assignAction();
+        
+        
+        
+    });
 }
 
 function concertThis(){
