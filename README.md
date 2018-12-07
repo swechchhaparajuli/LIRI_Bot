@@ -8,10 +8,13 @@
             To grab concert dates and information
         OMDB API
             For movie information
+
     Spotify
         for spotify feature-- to obtain song/album information and a link to the song
+
     Moment
         To convert dates from Bands In Town API to desired layout
+        
     DotEnv
         Loading spotify-secret key and user information from .env file
 
