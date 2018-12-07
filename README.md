@@ -2,6 +2,7 @@
 *Disclaimer: While editing the random.txt file, if using "concert-this" be sure to not have any empty spaces in the string with query name*
 
 **External Packages and APIs Used**
+
     Axios used for:
         Bands In Town API
             To grab concert dates and information
@@ -16,12 +17,14 @@
 
 
 **GIF or Video**
-Screenshots
+
+**Screenshots**
 
 
 **User flow**
+
     Possible entries:
-    
+
         node liri.js concert-this <artist/band reference here>
                 prints out 5 different concerts related to the artist on console
                     * Name of the venue
