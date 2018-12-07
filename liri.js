@@ -77,7 +77,6 @@ function spotifyThis(){
       });   
 }
 
-
 function doWhatItSays(){
 
     fs.readFile("random.txt", "utf8", function(error, data) {

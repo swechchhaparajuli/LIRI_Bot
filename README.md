@@ -21,6 +21,7 @@ Screenshots
 
 **User flow**
     Possible entries:
+    
         node liri.js concert-this <artist/band reference here>
                 prints out 5 different concerts related to the artist on console
                     * Name of the venue
@@ -43,7 +44,7 @@ Screenshots
                 prints out message:
                     *If you haven't watched "Mr. Nobody," then you should: http://www.imdb.com/title/tt0485947/
                     *It's on Netflix!
-                    
+
         node liri.js spotify-this-song <artist/song reference here>
                     * Artist(s)
                     * The song's name
