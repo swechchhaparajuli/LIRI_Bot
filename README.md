@@ -14,7 +14,7 @@
 
     Moment
         To convert dates from Bands In Town API to desired layout
-        
+
     DotEnv
         Loading spotify-secret key and user information from .env file
 
@@ -22,6 +22,16 @@
 **GIF or Video**
 
 **Screenshots**
+    ![concert-this](/images/concert.png)
+    Format: ![concert-this](url)
+    ![movie-this](/images/movie.png)
+    Format: ![movie-this](url)
+    ![movie-this:no-movie](/images/movie2.png)
+    Format: ![movie-this:no-movie](url)
+    ![spotify-this-song](/images/spotify.png)
+    Format: ![spotify-this-song](url)
+    ![do-what-it-says](/images/do-what-it-says.png)
+    Format: ![do-what-it-says](url)
 
 
 **User flow**
