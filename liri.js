@@ -1,13 +1,16 @@
+
+//references--------
 require("dotenv").config();
 var Spotify = require('node-spotify-api');
-
+var moment = require('moment');
+moment().format();
 var keys = require("./keys.js");
 var fs = require("fs");
 var axios = require("axios");
-
 var argvArray = process.argv;
-
 var spotify = new Spotify(keys.spotify);
+//--------
+
 
 var commandString = "";
 var commandQuery = "The Sign";
@@ -103,11 +106,15 @@ function concertThis(){
             console.log(i+1);
             console.log(response.data[i].venue.name);
             console.log(response.data[i].venue.city + " " + response.data[i].venue.region + ", " + response.data[i].venue.country);
-            console.log(response.data[i].datetime);
+            console.log(fixDate(response.data[i].datetime));
             console.log("");
         }
     }
   );
+}
 
+function fixDate(t){
+    var tArray = t.split("T");
+    return moment(tArray[0]).format("MM/DD/YYYY");
 }
 
