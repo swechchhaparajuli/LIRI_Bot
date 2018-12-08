@@ -11,6 +11,18 @@ var argvArray = process.argv;
 var spotify = new Spotify(keys.spotify);
 //--------
 
+console.log("INSTRUCTIONS: ");
+console.log("");
+console.log("node liri.js concert-this <artist/band reference here>\n       prints out 5 different concerts related to the artist on console");
+console.log("");
+console.log( "node liri.js movie-this <Movie Reference here> \n     prints out movie information ");
+console.log("");
+console.log("node liri.js movie-this \n     prints out message: \n          If you haven't watched 'Mr. Nobody,' then you should:http://www.imdb.com/title/tt0485947/ \n      It's on Netflix!");
+console.log("");
+console.log("node liri.js spotify-this-song <artist/song reference here>");         
+console.log("");
+console.log("node liri.js do-what-it-says\n     takes in text from random.txt and executes what it says"); 
+console.log("");   
 
 var commandString = "";
 var commandQuery = "The Sign";
