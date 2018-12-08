@@ -10,6 +10,7 @@ var axios = require("axios");
 var argvArray = process.argv;
 var spotify = new Spotify(keys.spotify);
 var printingArray = [];
+var divider = "\n--------------------------------------------------------------"
 //--------
 
 if (argvArray.length == 2){
@@ -27,7 +28,8 @@ if (argvArray.length == 2){
 
     printingArray.forEach(element => {console.log(element);
         });
-    printingArray = [" "];
+   // printingArray = [" "];
+   addToFile();
 }
 
 var commandString = "";
@@ -40,7 +42,8 @@ if (argvArray.length < 4){
         ,"It's on Netflix!");
         printingArray.forEach(element => {console.log(element);
         });
-    printingArray = [" "];
+    //printingArray = [" "];
+    addToFile();
         
     }
     if (argvArray[2] == "do-what-it-says"){
@@ -70,18 +73,19 @@ function movieThis(){
 axios.get("http://www.omdbapi.com/?t="+ commandQuery + "&y=&plot=short&apikey=trilogy").then(
     function(response) {
         printingArray.push(""
-      ,"Title: " + response.data.Title
-      ,"Release Year: " + response.data.Year
-      ,"IMDB Rating: " + response.data.imdbRating
-      ,"Rotten Tomatoes Rating: " + response.data.Rated
-      ,"Country: " + response.data.Country
-      ,"Language: " + response.data.Language
-      ,"Plot: " + response.data.Plot
-      ,"Actors: " + response.data.Actors);
+      ,"\nTitle: " + response.data.Title
+      ,"\nRelease Year: " + response.data.Year
+      ,"\nIMDB Rating: " + response.data.imdbRating
+      ,"\nRotten Tomatoes Rating: " + response.data.Rated
+      ,"\nCountry: " + response.data.Country
+      ,"\nLanguage: " + response.data.Language
+      ,"\nPlot: " + response.data.Plot
+      ,"\nActors: " + response.data.Actors);
 
       printingArray.forEach(element => {console.log(element);
       });
-    printingArray = [" "];
+    //printingArray = [" "];
+    addToFile();
       
     }
   );
@@ -98,14 +102,15 @@ function spotifyThis(){
            artists.push(data.tracks.items[0].artists[i].name);
        }
        printingArray.push(
-        "Artists: " + artists.join(" , ")
-        ,"Song Name: " + data.tracks.items[0].name
-        ,"Album: " + data.tracks.items[0].album.name
-        ,"Link: " + data.tracks.items[0].external_urls.spotify);
+        "\nArtists: " + artists.join(" , ")
+        ,"\nSong Name: " + data.tracks.items[0].name
+        ,"\nAlbum: " + data.tracks.items[0].album.name
+        ,"\nLink: " + data.tracks.items[0].external_urls.spotify);
 
         printingArray.forEach(element => {console.log(element);
         });
-      printingArray = [" "];
+      //printingArray = [" "];
+      addToFile();
       });   
 }
 
@@ -123,7 +128,6 @@ function doWhatItSays(){
         commandQuery = temp[1];
         printingArray.push(commandQuery);
         assignAction();
-        
     });
 }
 
@@ -137,21 +141,24 @@ function concertThis(){
         for(var i = 0; i<5; i++){
             if (response.data[i] != undefined){
                 printingArray.push(i+1
-                ,response.data[i].venue.name
-                ,response.data[i].venue.city + " " + response.data[i].venue.region + ", " + response.data[i].venue.country
-                ,fixDate(response.data[i].datetime)
-                ,"");
+                ,"\n"+response.data[i].venue.name
+                ,"\n"+response.data[i].venue.city + " " + response.data[i].venue.region + ", " + response.data[i].venue.country
+                ,"\n"+fixDate(response.data[i].datetime)
+                ,"\n");
             }else{
-               printingArray.push("No more than " + i + " concerts for "+ commandQuery);
+               printingArray.push("\nNo more than " + i + " concerts for "+ commandQuery);
                printingArray.forEach(element => {console.log(element);
                });
-             printingArray = [" "];
+            // printingArray = [" "];
+            addToFile();
                 return;
             }
-            printingArray.forEach(element => {console.log(element);
-            });
-          printingArray = [" "];
+
         }
+        printingArray.forEach(element => {console.log(element);
+        });
+      //printingArray = [" "];
+      addToFile();
     }
   );
 }
@@ -161,3 +168,10 @@ function fixDate(t){
     return moment(tArray[0]).format("MM/DD/YYYY");
 }
 
+function addToFile(){
+
+    fs.appendFile("log.txt", printingArray + divider, function(err) {
+        if (err) throw err;
+    });
+   // printingArray = [" "];
+}
