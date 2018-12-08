@@ -10,7 +10,7 @@ var axios = require("axios");
 var argvArray = process.argv;
 var spotify = new Spotify(keys.spotify);
 var printingArray = [];
-var divider = "\n--------------------------------------------------------------"
+var divider = "\n--------------------------------------------------------------\n"
 //--------
 
 if (argvArray.length == 2){
@@ -38,8 +38,8 @@ var commandQuery = "The Sign";
 if (argvArray.length < 4){
     if(argvArray[2] == "movie-this" && argvArray.length == 3){
         printingArray.push( ""
-        ,"If you haven't watched 'Mr. Nobody' then you should: http://www.imdb.com/title/tt0485947/"
-        ,"It's on Netflix!");
+        ,"\nIf you haven't watched 'Mr. Nobody' then you should: http://www.imdb.com/title/tt0485947/"
+        ,"\nIt's on Netflix!");
         printingArray.forEach(element => {console.log(element);
         });
     //printingArray = [" "];
@@ -72,15 +72,15 @@ function movieThis(){
 // Then run a request with axios to the OMDB API with the movie specified
 axios.get("http://www.omdbapi.com/?t="+ commandQuery + "&y=&plot=short&apikey=trilogy").then(
     function(response) {
-        printingArray.push(""
-      ,"\nTitle: " + response.data.Title
-      ,"\nRelease Year: " + response.data.Year
-      ,"\nIMDB Rating: " + response.data.imdbRating
-      ,"\nRotten Tomatoes Rating: " + response.data.Rated
-      ,"\nCountry: " + response.data.Country
-      ,"\nLanguage: " + response.data.Language
-      ,"\nPlot: " + response.data.Plot
-      ,"\nActors: " + response.data.Actors);
+        printingArray.push("",
+      "\nTitle: " + response.data.Title,
+      "\nRelease Year: " + response.data.Year,
+      "\nIMDB Rating: " + response.data.imdbRating,
+      "\nRotten Tomatoes Rating: " + response.data.Rated,
+      "\nCountry: " + response.data.Country,
+      "\nLanguage: " + response.data.Language,
+      "\nPlot: " + response.data.Plot,
+      "\nActors: " + response.data.Actors);
 
       printingArray.forEach(element => {console.log(element);
       });
@@ -102,10 +102,10 @@ function spotifyThis(){
            artists.push(data.tracks.items[0].artists[i].name);
        }
        printingArray.push(
-        "\nArtists: " + artists.join(" , ")
-        ,"\nSong Name: " + data.tracks.items[0].name
-        ,"\nAlbum: " + data.tracks.items[0].album.name
-        ,"\nLink: " + data.tracks.items[0].external_urls.spotify);
+        "\nArtists: " + artists.join(" , "),
+        "\nSong Name: " + data.tracks.items[0].name,
+        "\nAlbum: " + data.tracks.items[0].album.name,
+        "\nLink: " + data.tracks.items[0].external_urls.spotify);
 
         printingArray.forEach(element => {console.log(element);
         });
@@ -140,11 +140,11 @@ function concertThis(){
         ,"");
         for(var i = 0; i<5; i++){
             if (response.data[i] != undefined){
-                printingArray.push(i+1
-                ,"\n"+response.data[i].venue.name
-                ,"\n"+response.data[i].venue.city + " " + response.data[i].venue.region + ", " + response.data[i].venue.country
-                ,"\n"+fixDate(response.data[i].datetime)
-                ,"\n");
+                printingArray.push(i+1,
+                "\n"+response.data[i].venue.name,
+                "\n"+response.data[i].venue.city + " " + response.data[i].venue.region + ", " + response.data[i].venue.country,
+                "\n"+fixDate(response.data[i].datetime),
+                "\n");
             }else{
                printingArray.push("\nNo more than " + i + " concerts for "+ commandQuery);
                printingArray.forEach(element => {console.log(element);
